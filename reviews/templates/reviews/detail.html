@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% load django_bootstrap5 %} {% block content %}
+<h2 class="text-center fw-bold">{{review.title}}</h2>
+<hr />
+<h3 class="d-flex justify-content-between">
+  {{review.movie_name}}<span><small>⭐{{review.grade}}</small></span>
+</h3>
+
+<hr />
+<p>{{review.content}}</p>
+
+<div class="d-flex">
+  <button
+    type="submit"
+    class="btn btn-outline-dark"
+    onclick="location.href='{% url 'reviews:update' review.pk %}' "
+  >
+    수정
+  </button>
+  <form
+    class="mx-2"
+    action="{% url 'reviews:delete' review.pk %}"
+    method="POST"
+  >
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-danger">삭제</button>
+  </form>
+</div>
+{% endblock content %}
